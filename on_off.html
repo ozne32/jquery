@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>on e off eventos</title>
+    <style>
+        .desfocado{
+            background-color: white;
+        }
+        .focado{
+            background-color: green;
+        }
+    </style>
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(()=>{
+            // //neste caso para o novo elemento ele não irá atribuir as coisas que eu fiz
+            // $('input').on('focus', e=>{
+            //     $(e.target).removeClass('desfocado')
+            //     $(e.target).addClass('focado')
+            // })
+            // $('input').on('blur', e=>{
+            //     $(e.target).removeClass('focado')
+            //     $(e.target).addClass('desfocado')
+            // })
+            // $('body').append('<br> <br><br>  <input type="text" class="desfocado">')
+            //neste caso dá certo, por conta que eu estou reajustando a referencia do on
+            //estou indo no body e vendo os inputs existentes, independente se foram criados antes ou dps 
+            $('body').on('focus','input',e=>{
+                $(e.target).removeClass('desfocado')
+                $(e.target).addClass('focado')
+            })
+            $('body').on('blur','input', e=>{
+                $(e.target).removeClass('focado')
+                $(e.target).addClass('desfocado')
+            })
+            $('body').append('<br> <br><br>  <input type="text" class="desfocado">')
+
+            //o off serve para tirar o on dá sua aplicação ent
+            $('body').off('blur', 'focus')
+            // agr o focus, vai funcionar, porém quando você não estiver mais com ele focado continuará verde
+        })
+    </script>
+</head>
+<body>
+    <input type="text" class="desfocado">
+</body>
+</html>

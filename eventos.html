@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+		<title>jQuery-eventos</title>
+
+		<style>
+            .miniJanela{
+                width: 100px;
+                height: 100px;
+                border: solid 1px;
+                overflow-y: scroll;
+            }
+            #divExterna{
+                background-color: #ccc;
+                width: 80px;
+                height: 80px;
+                padding: 70px;
+            }
+            #divInterna{
+                background-color: blue;
+                width: 80px;
+                height: 80px;
+            }
+            .form-modifica{
+                background-color: rgba(100, 163, 100, 0.808);
+            }
+		</style>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <!-- parte do window.scroll, onload e resize -->
+		<script>
+            $(document).ready(()=>{
+                // como o ready meio que já vê se a página foi totalmente carregada, pode usar ele como se fosse o evento de onload mesmo
+                $('#onload').html('está página foi carregada')
+                //para scroll eu posso usar o window msm, que vai ter a função scroll, que recebe uma função de callback
+                $(window).scroll(()=>{
+                    $('#scroll').html('foi scrolado')
+                })
+                //para acontecer antes do resize
+                $(window).resize(()=>{
+                        $('#resize').html('houve um resize desta página')
+                })
+                //diferença entre function e arrow function
+                //o this funciona quando você está trabalhando com funções
+                // $('#scrolzinho').scroll(function(){
+                //     $(this).css('background-color','blue')
+                // })
+                // se eu usasse o this aqui não ia funcionar por conta de como é feita as arrow funcionsl, por isso eu coloco um paramêtro, que vai me retornar um objeto, e 
+                // dentro deste objeto eu seleciono o target que indica qual elemento de fato eu tenho que modificar
+                $('#scrolzinho').scroll(e=>{
+                    $(e.target).css('background-color','blue')
+                })
+                // OBS: é legal você manter um padrão em relação de function vs arrow function
+            })
+		</script>
+        <!-- parte do mouse -->
+        <script>
+            $(document).ready(()=>{
+                //mousedown->clique sem soltar mouseup->soltar o clique click-> mousedown + mouseup
+                $('#btn1').mousedown(()=>{
+                    $('#div2').css('background-color', 'green')
+                })
+                $('#btn1').mouseup(()=>{
+                    $('#div2').css('background-color', 'red')
+                })
+                $('#btn1').click(()=>{
+                    $('#div2').css('background-color', 'aliceblue')
+                })         
+                //dblclick->double click para funcionar mousemove(funcao callback)->pega os valore sdas coordenadas    
+                $('#btn2').dblclick(()=>{
+                    $('#div2').css('background-color', 'yellow')
+                })
+                $('#div2').mousemove(e=>{
+                    $('#res').html(`as coordenadas são X: ${e.offsetX}/Y:${e.offsetY}`)
+                })
+                //mouseenter e mouseleve(novos) mouseover e mouseout(antigos)
+                // $('#divExterna').mouseover(()=>{
+                //     $('#resultado').html('entrou')
+                // })
+                // $('#divExterna').mouseout(()=>{
+                //     $('#resultado').html('saiu')
+                // })
+                // $('#divInterna').mouseover(()=>{
+                //     $('#resultado1').html('entrou')
+                // })
+                // $('#divInterna').mouseout(()=>{
+                //     $('#resultado1').html('saiu')
+                // })
+                //a diferença é que utilizando os métodos antigos forma um negócio chamado de bubble onde neste exemplo eu tenho uma caixa dentro da outra, aí acontece que quando eu 
+                // chego novamente para clicar na caixa de dentro ele primeiro sai da caixa de fora para dps entrar nas duas. Este comportamento gera uma confusão, e os métodos novos
+                // eliminaram isso, portanto agora tudo está mais 'coerente' e eles são os mais utilizados de qualquer jeito msm
+                $('#divExterna').mouseenter(()=>{
+                    $('#resultado').html('entrou')
+                })
+                $('#divExterna').mouseleave(()=>{
+                    $('#resultado').html('saiu')
+                })
+                $('#divInterna').mouseenter(()=>{
+                    $('#resultado1').html('entrou')
+                })
+                $('#divInterna').mouseleave(()=>{
+                    $('#resultado1').html('saiu')
+            })
+        })
+        </script>
+        <!-- parte do teclado -->
+        <script>
+            $(document).ready(()=>{
+                // $('#teclado').keyup(()=>{
+                //     $('#resultadoTecla').html('está levantando')
+                // })
+                // $('#teclado').keydown(()=>{
+                //     $('#resultadoTecla').html('está apertado')
+                // })
+                $('#teclado').keyup((e)=>{
+                    let txt = $(e.target).val()
+                    console.log(e.keyCode)
+                    if(e.keyCode <97 || e.keyCode > 100){
+                        let txt = $(e.target).val()
+                        txt = txt.slice(0,-1)
+                        $(e.target).val(txt)
+                    }
+                    if(e.keyCode==13){
+                        $('#resultadoTecla').html(txt)
+                        $(e.target).val('')
+                    }
+                })
+            })
+        </script>
+        <!-- parte dos formularios -->
+        <script>
+            // blur para quando tirar o foco, focus para quando ganhar foco e por ultimo change para quando mudar a opção das coisas
+            // e submit para quando o formulário for registrado
+            $(document).ready(()=>{
+                $('#texto').focus(e=>{
+                    $(e.target).addClass('form-modifica')
+                })
+                $('#email').focus(e=>{
+                    $(e.target).addClass('form-modifica')
+                })
+                $('#email').blur(e=>{
+                    $(e.target).removeClass('form-modifica')
+                })
+                $('#texto').blur(e=>{
+                    $(e.target).removeClass('form-modifica')
+                })
+                $('#selecionar').change(e=>{
+                    console.log($(e.target).val())
+                })
+                $('form').submit(e=>{
+                    e.preventDefault()
+                    console.log('página foi submetida')
+                })
+            })
+        </script>
+	</head>
+
+	<body>
+		
+		<div id="topo">
+			<h1>Eventos</h1>
+		</div>
+
+		<div>
+			<h3>Browser</h3>
+			<span>Onload: </span><span id="onload">?</span><br />
+			<span>Scroll: </span><span id="scroll">?</span><br />
+			<span>resize window: </span><span id="resize">?</span>
+            <div class="miniJanela" id="scrolzinho">
+                <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+            </div>
+			<hr/>
+
+			<h3>Mouse</h3>
+			<button id="btn1" type="button">Clique aqui</button>
+			<button type="button" id="btn2 ">Clique aqui 2x</button>
+			<div id="div2" style="background-color: red; width: 80px; height: 50px; margin-top: 10px; margin-bottom: 10px"></div>
+			<span id ='res'>Resultado do evento sobre a div</span>]
+            <div id="divExterna"><div id="divInterna"></div></div>
+            <span >div externa: <span id="resultado"></span></span> <br>
+            <span >div interna: <span id="resultado1"></span></span><br>
+			<hr />
+
+			<h3>Teclado</h3>
+			<span>Nome:</span>
+			<input type="text" id="teclado"/>
+			<span id="resultadoTecla"></span>
+			<hr>
+
+			<h3>Formulário</h3>
+			<form>
+				<span>Nome:</span>
+				<input type="text" id="texto" />
+
+				<span>E-mail:</span>
+				<input type="text" id="email" />
+
+				<span>Motivo do contato:</span>
+				<select id="selecionar">
+					<option value="">-- Selecione --</option>
+					<option value="duvida">Dúvida</option>
+					<option value="sugestao">Sugestão</option>
+				</select>
+				
+				<button type="submit">Enviar</button>
+			</form>
+		</div>
+	</body>
+
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(()=>{
+            // aqui é como eu posso adicionar um determinado elemento nas minhas coisas, pode ser para div, lista, e etc
+            $('#lista').prepend('<li>item0</li>') //antes
+            $('#lista').append('<li>item5</li>') //depois
+            $('#lista').before('eu estou antes da lista') //usa com referencia e coloca antes
+            $('#lista').after('eu estou depois da lista') //usa com referencia e coloca depois
+            //como já visto pode usar o .html lembrando que ele substitui tudo que está dentro da div, e também dá para colocar o remove que vai remover aquele elemento por completo
+        })
+        
+    </script>
+</head>
+<body>
+    <ul id="lista">
+        <li>item1</li>
+        <li>item2</li>
+        <li>item3</li>
+        <li>item4</li>
+    </ul>
+</body>
+</html>

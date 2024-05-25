@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>comando iniciais jquery</title>
+    <!-- link cdn para o jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script>
+        // a gnt usa isso aqui, para só executar oq está dentro do comando após a página estar completamente carregada
+        $(document).ready(()=>{
+            // selecionando um elemento com base em sua tag, ele seleciona todos os elementos daquela tag
+            console.log($('p'))
+            // selecionando com base na classe
+            console.log($('.p2'))
+            //selecionando com base pem seu id 
+            console.log($('#p1'))
+            // manipulando os atributos .attr(<atributo>,<valor>)
+            $('.input').attr('type', 'number')
+            // recuperando e manipulando o conteúdo interno de um elemento
+            $('div#html').html('hoje foi um dia péssimo para o senhor <b>Enzo Ribeiro de Castro Costa</b>(trocado com .html)') //.html -->lida com tags html 
+            $('div#text').text('hoje foi um dia péssimo para o senhor <b>Enzo Ribeiro de Castro Costa</b>(trocado com text)') //.text -->não lida  com tags html 
+        })
+    </script>
+</head>
+<body>
+    <p id="p1">oi tudo bem</p>
+    <p class="p2">como você está hoje </p>
+    <input type="text" class="input">
+    <div id="html">Hoje foi um dia muito legal para o senhor Enzo Ribeiro de Castro Costa</div>
+    <div id="text">Hoje foi um dia muito legal para o senhor Enzo Ribeiro de Castro Costa</div>
+    <p>Nome:</p>
+    <p>este elemento foi trocado com jquery</p><br>
+    <input type="text" id="nome" placeholder="digite o seu nome">
+    <select name="coisa" id="coisa">
+        <option value="coisa">coisa</option>
+        <option value="coisa1">coisa1</option>
+        <option value="coisa2">coisa2</option>
+        <option value="coisa3">coisa3</option>
+    </select>
+    <select name="coisa1" id="coisa">
+        <option value="coisa">coisa</option>
+        <option value="coisa1">coisa1</option>
+        <option value="coisa2">coisa2</option>
+        <option value="coisa3">coisa3</option>
+    </select>
+    <p>Sexo:</p>
+    <input type="radio" name="sexo" class="sexo" value="f">Feminino<br>
+    <input type="radio" name="sexo" class="sexo" value="m">Masculino <br>
+    <p>linguagens de programação</p>
+    <input type="checkbox" name="interesse" class="interesse" value="php">PHP <br>
+    <input type="checkbox" name="interesse" class="interesse" value="py">Python <br>
+    <input type="checkbox" name="interesse" class="interesse" value="assembly">Assembly<br>
+    <input type="checkbox" name="interesse" class="interesse" value="js">Javascript <br>
+    
+    <script>
+        // selecionando e alterando o valor de inputs e selects
+        $('#coisa').val('coisa2')
+        $('#coisa').val()
+        $('#nome').val('enzo ribeirão preto')
+        // recuperando elementos checkbox 
+        $('.sexo:checked') //como isso é ontime foi feito no console da aplicação msm
+        // para pegar o de checkbox, que dá para pegar muitos de uma só vez, teremos que user o .each(<array>, <callback function(indices, valores)>)
+        $.each($('.interesse:checked'), (indice,valor)=>console.log(indice, valor.value)) //o valor retorna tudo tipo <input type...> por isso se faz necessário adicionar o .value
+        
+
+    </script>
+
+</body>
+</html>

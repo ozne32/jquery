@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<script>
+    $(document).ready(()=>{
+        // 3 métodos principais parent()--> retorna o elemento pai, closest()-->procura por elementos pais, find() ->procura por elementos filhos
+        // closest(id)--> vai procurando até achar o elemento id pai
+        // parent() -->pega o pai de x elemento
+        //find(id)-->procura elementos filhos
+        // pode usar tudo de uma vez 
+    })
+</script>
+<body>
+    <div id="topo">
+        <ul class="menu">
+            <li class="item"></li>
+            <li class="item"></li>
+        </ul>
+    </div>
+    <div id="pagina">
+        <div class="secao1">
+            <div class="subSecao"></div>
+        </div>
+        <div class="secao2">
+            <h1></h1>
+        </div>
+    </div>
+    <div id="rodape">
+        <div>
+            <p></p>
+            <span id="opcao1"></span>
+        </div>
+    </div>
+</body>
+</html>
